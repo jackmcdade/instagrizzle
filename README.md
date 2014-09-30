@@ -6,7 +6,7 @@ Fetch media from a public Instagram feed, without the need for the API. Yeah, it
 ## The Tag
 
 ```
-{{ instagrizzle }}
+{{ instagrizzle username="jackmcdade" limit="5" offset="1" }}
   <img src="{{ images:high_resolution:url }}">
 {{ /instagrizzle }}
 ```
@@ -37,7 +37,11 @@ offset="1"
 
 ## Debugger
 
-There are a lot of variables to access from the Instagram response object. You can use `{{ instagrizzle:debug }}` to explore the data available to you.
+There are a lot of variables to access from the Instagram response object. You can use the debug tag to explore the data available to you.
+
+```
+{{ instagrizzle:debug username="jackmcdade" }}
+```
 
 ## Config
 
@@ -54,3 +58,7 @@ username: jackmcdade
 ### Cache Length `cache_length`
 
 Set how many seconds you would like to cache the Instagram response object. Default is 3600 (1 hour).
+
+```yaml
+cache_length: 3600
+```

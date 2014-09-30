@@ -1,0 +1,7 @@
+# Instagrizzle Config
+
+# Instagram username to fetch
+username: colerise
+
+# Number of seconds to cache the instagram media 
+cache_length: 3600

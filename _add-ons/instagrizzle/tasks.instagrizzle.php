@@ -47,8 +47,8 @@ class Tasks_instagrizzle extends Tasks
 	{
 		$source = file_get_contents('http://instagram.com/' . $username);
 		$shards = explode('window._sharedData = ', $source);
-		$json_response = explode('"}};', $shards[1]);
-		$response_array = json_decode($json_response[0].'"}}', TRUE);
+		$json_response = explode(';</script>', $shards[1]);
+		$response_array = json_decode($json_response[0], TRUE);
 		
 		$media = $response_array['entry_data']['UserProfile'][0]['userMedia'];
 

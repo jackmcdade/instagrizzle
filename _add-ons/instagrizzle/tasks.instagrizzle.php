@@ -41,17 +41,31 @@ class Tasks_instagrizzle extends Tasks
 	}
 
 	// Quick and dirty Instagram scraper
-	// 
-	// Based on https://gist.github.com/cosmocatalano/4544576
 	public function scrape($username)
 	{
 		$source = file_get_contents('http://instagram.com/' . $username);
 		$shards = explode('window._sharedData = ', $source);
 		$json_response = explode(';</script>', $shards[1]);
 		$response_array = json_decode($json_response[0], TRUE);
-		
-		$media = $response_array['entry_data']['UserProfile'][0]['userMedia'];
+		$nodes = array_get($response_array, 'entry_data:ProfilePage:0:user:media:nodes');
 
-		return $media;
+		$data = array();
+
+		foreach ($nodes as $node) {
+			$url = 'https://instagram.com/p/' . $node['code'];
+			$image = $node['display_src'];
+
+			$data[] = $node + array(
+				'url' => $url,
+				'link' => $url,
+				'image' => $image,
+				'images' => array(
+					'high_resolution' => array('url' => $image),
+					'low_resolution' => array('url' => $image)
+				)
+			);
+		}
+
+		return $data;
 	}
 }

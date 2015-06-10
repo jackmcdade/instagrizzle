@@ -1,13 +1,17 @@
 Instagrizzle - An Instagram Plugin for Statamic
 ===============================================
 
-Fetch media from a public Instagram feed, without the need for the API. Yeah, it's a down and dirty scraping plugin. Enjoy!
+Fetch media from a public Instagram feed, without the need for the API. Yeah, it's a down and dirty scraping plugin.
+
+**You probably shouldn't use this on an important website because it breaks every time Instagram changes their markup.**
 
 ## The Tag
 
 ```
 {{ instagrizzle username="jackmcdade" limit="5" offset="1" }}
-  <img src="{{ images:high_resolution:url }}">
+  <a href="{{ link }}">
+    <img src="{{ image }}">
+  </a>
 {{ /instagrizzle }}
 ```
     
@@ -62,3 +66,6 @@ Set how many seconds you would like to cache the Instagram response object. Defa
 ```yaml
 cache_length: 3600
 ```
+
+---
+v2 Note: Instagram changed their redesign on June 9th, 2015, and the data available to Instagrizzle is more limited. I did my best to add backwards compatibility for the basic image data, but other than that, use the `{{ instagram:debug }}` tag to see what you have to work with, and God Speed. This is a dirty hacky solution to avoid API authentication.
